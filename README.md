@@ -1,9 +1,11 @@
-## Tomato's OpenVPN settings
+# Tomato's OpenVPN settings
 
-Tomato Firmware: v3.4-138 AIO
-OpenVPN version: v2.3.11
+- Tomato Firmware: v3.4-138 AIO  
+- OpenVPN version: v2.3.11
 
-1. Download `easy-rsa` v2
+## Steps
+
+1. Download `easy-rsa` v2  
 https://github.com/OpenVPN/easy-rsa/releases/tag/2.2.2
 
 2. Copy these scripts to the same folder
@@ -40,6 +42,9 @@ $ ./generate-keys-server.sh
 Warning: That will clean all the keys
 That will generate ca cert, server keys...etc.
 It will show up a screen like this when it done.
+
+![1](https://raw.githubusercontent.com/j796160836/tomato-openvpn-setup/master/screenshots/paste_key.png)
+
 ```
 ================================================================
       Please paste it at Tomato's OpenVPN key config page
@@ -85,6 +90,9 @@ $ ./print-server.sh
 5. Fetch config from Tomato router
 Run script on your Tomato router
 Copy all the `fetch-server-config.txt` content into router's run command screens.
+
+![2](https://raw.githubusercontent.com/j796160836/tomato-openvpn-setup/master/screenshots/fetch_config1.png)
+
 ```
 #!/bin/bash
 server_config="/etc/openvpn/server1/config.ovpn"
@@ -105,7 +113,10 @@ echo
 echo "echo -e \""$config_data"\" > server-config" 
 ```
 
-you will get something like this
+you will get something like this  
+
+![3](https://raw.githubusercontent.com/j796160836/tomato-openvpn-setup/master/screenshots/fetch_config2.png)
+
 ```
 ================================================== 
 Please paste this command in your easy-rsa folder 
@@ -113,7 +124,6 @@ Please paste this command in your easy-rsa folder
  
 echo -e "remote 1.2.3.4 1194\nproto udp\ndev tun21\ncipher DES-CBC\n" > server-config 
 ```
-
 run what your got in your command line
 
 6. Generate client keys
