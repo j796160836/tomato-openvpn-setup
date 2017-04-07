@@ -1,0 +1,17 @@
+#!/bin/bash
+server_config="/etc/openvpn/server1/config.ovpn"
+if [ ! -e $server_config ]; then
+	echo "File not found!: $server_config"
+	exit 1
+fi
+port=`cat $server_config | grep "port" | awk '{print $2}'`
+public_ip=`curl -s ipinfo.io/ip`
+#public_ip=`curl -s checkip.dyndns.org | sed -e 's/.*Current IP Address: //' -e 's/<.*$//'`
+
+config_data="remote "$public_ip" "$port"\n"$(cat $server_config | grep "proto\|dev\|cipher" | awk '{printf "%s\\n", $0}')
+
+echo "=================================================="
+echo "Please paste this command in your easy-rsa folder"
+echo "=================================================="
+echo
+echo "echo -e \""$config_data"\" > server-config" 
